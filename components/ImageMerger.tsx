@@ -3,14 +3,30 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import sampleImageUrl from "@/images/sample.jpg";
 
+interface Transform {
+  position: { x: number; y: number };
+  rotation: { angle: number };
+  scale: { x: number; y: number };
+}
+
+interface DesignState {
+  image: string;
+  transform: Transform;
+}
+
+interface CanvasValue {
+  position: { x: number; y: number };
+  scale: { x: number; y: number };
+}
+
 const ImageMerger = () => {
-  const [mergedImage, setMergedImage] = useState(null);
+  const [mergedImage, setMergedImage] = useState<string | null>(null);
 
   const handleMergeImages = async () => {
     const templateImage = 'https://asset.customon.com/templates/14/models/527/navy.jpg';
     const sampleImage = sampleImageUrl.src;
 
-    const designState = {
+    const designState: DesignState = {
       image: sampleImage,
       transform: {
         position: { x: 400, y: 400 },
@@ -19,7 +35,7 @@ const ImageMerger = () => {
       }
     };
 
-    const canvasValue = {
+    const canvasValue: CanvasValue = {
       position: { x: 400, y: 400 },
       scale: { x: 600, y: 600 }
     };
@@ -33,7 +49,7 @@ const ImageMerger = () => {
   };
 
   // Include the mergeImages and loadImage functions here or import them
-  const mergeImages = async (productItemImage, designState, canvasValue) => {
+  const mergeImages = async (productItemImage: string, designState: DesignState, canvasValue: CanvasValue): Promise<string> => {
     const canvas = document.createElement('canvas');
     canvas.width = canvasValue.scale.x;
     canvas.height = canvasValue.scale.y;
@@ -41,21 +57,21 @@ const ImageMerger = () => {
 
     // Load images
     const productImage = await loadImage(productItemImage);
-    ctx.drawImage(productImage, 0, 0, canvas.width, canvas.height);
+    ctx?.drawImage(productImage, 0, 0, canvas.width, canvas.height);
 
     const designImage = await loadImage(designState.image);
-    ctx.save();
-    ctx.translate(designState.transform.position.x, designState.transform.position.y);
-    ctx.rotate((designState.transform.rotation.angle * Math.PI) / 180);
-    ctx.scale(designState.transform.scale.x, designState.transform.scale.y);
-    ctx.drawImage(designImage, -designImage.width / 2, -designImage.height / 2);
-    ctx.restore();
+    ctx?.save();
+    ctx?.translate(designState.transform.position.x, designState.transform.position.y);
+    ctx?.rotate((designState.transform.rotation.angle * Math.PI) / 180);
+    ctx?.scale(designState.transform.scale.x, designState.transform.scale.y);
+    ctx?.drawImage(designImage, -designImage.width / 2, -designImage.height / 2);
+    ctx?.restore();
 
     // Return the merged image as a data URL
     return canvas.toDataURL('image/png');
   };
 
-  const loadImage = (src) => {
+  const loadImage = (src: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.crossOrigin = 'Anonymous'; // Important for CORS
