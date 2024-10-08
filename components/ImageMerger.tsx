@@ -1,46 +1,21 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import sampleImageUrl from "@/public/sample.jpg";
-// import templateImageUrl from "@/public/template.jpg";
+import sampleImageUrl from "@/images/sample.jpg";
 
 const ImageMerger = () => {
   const [mergedImage, setMergedImage] = useState(null);
-  const [worker, setWorker] = useState<Worker | null>(null);
 
-  useEffect(() => {
-    if (typeof Worker !== "undefined") {
-        const w = new Worker(new URL('../public/merge-images-worker.js', import.meta.url));
-        setWorker(w);
-        alert('Web Workers are supported in this browser.');
-
-        return () => {
-            w.terminate();
-            alert('Web Worker terminated.');
-        };
-    } else {
-        console.warn('Web Workers are not supported in this browser.');
-        alert('Web Workers are not supported in this browser.');
-        // Handle image merging without worker here as fallback
-    }
-}, []);
-
-
-  const handleMergeImages = () => {
-    alert('line 29 before if worker');
-    if (!worker) return;
-    alert('line 31 after if worker');
-
+  const handleMergeImages = async () => {
     const templateImage = 'https://asset.customon.com/templates/14/models/527/navy.jpg';
-    // const templateImage = templateImageUrl;
-    const sampleImage = sampleImageUrl.src; // Use the 'src' property of the imported image
+    const sampleImage = sampleImageUrl.src;
 
     const designState = {
       image: sampleImage,
       transform: {
         position: { x: 400, y: 400 },
         rotation: { angle: 0 },
-        scale: { x: 0.5, y: 0.5 } // 50% scale of the original sample image
+        scale: { x: 0.5, y: 0.5 }
       }
     };
 
@@ -49,20 +24,45 @@ const ImageMerger = () => {
       scale: { x: 600, y: 600 }
     };
 
-    worker.postMessage({ productItemImage: templateImage, designState, canvasValue });
+    try {
+      const mergedImage = await mergeImages(templateImage, designState, canvasValue);
+      setMergedImage(mergedImage);
+    } catch (error) {
+      console.error('Error merging images:', error);
+    }
+  };
 
-    worker.onmessage = (e) => {
-      alert('line 52');
-      setTimeout(() => {
-          if (e.data.error) {
-              console.error('Error from worker:', e.data.error);
-              alert('Error from worker:' + e.data.error);
-          } else {
-              setMergedImage(e.data);
-              alert('line 58 Image merged successfully!');
-          }
-      }, 0);
-    };
+  // Include the mergeImages and loadImage functions here or import them
+  const mergeImages = async (productItemImage, designState, canvasValue) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvasValue.scale.x;
+    canvas.height = canvasValue.scale.y;
+    const ctx = canvas.getContext('2d');
+
+    // Load images
+    const productImage = await loadImage(productItemImage);
+    ctx.drawImage(productImage, 0, 0, canvas.width, canvas.height);
+
+    const designImage = await loadImage(designState.image);
+    ctx.save();
+    ctx.translate(designState.transform.position.x, designState.transform.position.y);
+    ctx.rotate((designState.transform.rotation.angle * Math.PI) / 180);
+    ctx.scale(designState.transform.scale.x, designState.transform.scale.y);
+    ctx.drawImage(designImage, -designImage.width / 2, -designImage.height / 2);
+    ctx.restore();
+
+    // Return the merged image as a data URL
+    return canvas.toDataURL('image/png');
+  };
+
+  const loadImage = (src) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous'; // Important for CORS
+      img.onload = () => resolve(img);
+      img.onerror = (err) => reject(err);
+      img.src = src;
+    });
   };
 
   return (
