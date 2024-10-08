@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import sampleImageUrl from "@/images/sample.jpg";
+import templateImageUrl from "@/public/template.jpg";
 
 interface Transform {
   position: { x: number; y: number };
@@ -23,7 +24,7 @@ const ImageMerger = () => {
   const [mergedImage, setMergedImage] = useState<string | null>(null);
 
   const handleMergeImages = async () => {
-    const templateImage = 'https://asset.customon.com/templates/14/models/527/navy.jpg';
+    const templateImage = templateImageUrl.src;
     const sampleImage = sampleImageUrl.src;
 
     const designState: DesignState = {
