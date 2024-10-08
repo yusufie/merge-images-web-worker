@@ -1,20 +1,26 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import sampleImageUrl from "@/images/sample.jpg";
+import sampleImageUrl from "@/public/sample.jpg";
 
 const ImageMerger = () => {
   const [mergedImage, setMergedImage] = useState(null);
   const [worker, setWorker] = useState<Worker | null>(null);
 
   useEffect(() => {
-    const w = new Worker(new URL('../lib/merge-images/merge-images-worker.js', import.meta.url));
-    setWorker(w);
+    if (typeof Worker !== "undefined") {
+        const w = new Worker(new URL('../public/merge-images-worker.js', import.meta.url));
+        setWorker(w);
 
-    return () => {
-      w.terminate();
-    };
-  }, []);
+        return () => {
+            w.terminate();
+        };
+    } else {
+        console.warn('Web Workers are not supported in this browser.');
+        // Handle image merging without worker here as fallback
+    }
+}, []);
+
 
   const handleMergeImages = () => {
     if (!worker) return;
@@ -39,11 +45,13 @@ const ImageMerger = () => {
     worker.postMessage({ productItemImage: templateImage, designState, canvasValue });
 
     worker.onmessage = (e) => {
-      if (e.data.error) {
-        console.error('Error from worker:', e.data.error);
-      } else {
-        setMergedImage(e.data);
-      }
+      setTimeout(() => {
+          if (e.data.error) {
+              console.error('Error from worker:', e.data.error);
+          } else {
+              setMergedImage(e.data);
+          }
+      }, 0);
     };
   };
 

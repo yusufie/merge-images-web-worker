@@ -94,7 +94,6 @@ async function mergeImagesWorker(productItemImage, designState, canvasValue) {
 // Helper function to load an image from a URL
 async function loadImage(url) {
     try {
-
         const response = await fetch(url, { mode: 'cors' });
         if (!response.ok) {
             throw new Error(`Failed to fetch image. Status: ${response.status} ${response.statusText}`);
