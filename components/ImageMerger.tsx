@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import sampleImageUrl from "@/public/sample.jpg";
 import templateImageUrl from "@/public/template.jpg";
@@ -112,135 +112,135 @@ const ImageMerger = () => {
       {/* Form Inputs for Template */}
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Template</Label>
-        <Input
+        <input
           type="text"
           value={templateObj.templateImageUrl}
           onChange={(e) => setTemplateObj({ ...templateObj, templateImageUrl: e.target.value })}
           placeholder="Template Image URL"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Width</Label>
-        <Input
+        <input
           type="number"
           value={templateObj.templateBounderyWidth}
           onChange={(e) => setTemplateObj({ ...templateObj, templateBounderyWidth: parseInt(e.target.value) })}
           placeholder="Template Boundary Width"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Height</Label>
-        <Input
+        <input
           type="number"
           value={templateObj.templateBounderyHeight}
           onChange={(e) => setTemplateObj({ ...templateObj, templateBounderyHeight: parseInt(e.target.value) })}
           placeholder="Template Boundary Height"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>OffsetTop</Label>
-        <Input
+        <input
           type="number"
           value={templateObj.templateBounderyOffsetTop}
           onChange={(e) => setTemplateObj({ ...templateObj, templateBounderyOffsetTop: parseInt(e.target.value) })}
           placeholder="Template Boundary Offset Top"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>OffsetLeft</Label>
-        <Input
+        <input
           type="number"
           value={templateObj.templateBounderyOffsetLeft}
           onChange={(e) => setTemplateObj({ ...templateObj, templateBounderyOffsetLeft: parseInt(e.target.value) })}
           placeholder="Template Boundary Offset Left"
-          className=''
+          className='text-black'
         />
       </div>
 
-      {/* Form Inputs for Design */}
+      {/* Form inputs for Design */}
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Design</Label>
-        <Input
+        <input
           type="text"
           value={designObj.designImageUrl}
           onChange={(e) => setDesignObj({ ...designObj, designImageUrl: e.target.value })}
           placeholder="Design Image URL"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Width</Label>
-        <Input
+        <input
           type="number"
           value={designObj.designWidth}
           onChange={(e) => setDesignObj({ ...designObj, designWidth: parseInt(e.target.value) })}
           placeholder="Design Width"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Height</Label>
-        <Input
+        <input
           type="number"
           value={designObj.designHeight}
           onChange={(e) => setDesignObj({ ...designObj, designHeight: parseInt(e.target.value) })}
           placeholder="Design Height"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>OffsetTop</Label>
-        <Input
+        <input
           type="number"
           value={designObj.designOffsetTop}
           onChange={(e) => setDesignObj({ ...designObj, designOffsetTop: parseInt(e.target.value) })}
           placeholder="Design Offset Top"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>OffsetLeft</Label>
-        <Input
+        <input
           type="number"
           value={designObj.designOffsetLeft}
           onChange={(e) => setDesignObj({ ...designObj, designOffsetLeft: parseInt(e.target.value) })}
           placeholder="Design Offset Left"
-          className=''
+          className='text-black'
         />
       </div>
 
       {/* Form Inputs for Output Size */}
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Width</Label>
-        <Input
+        <input
           type="number"
           value={outputWidth}
           onChange={(e) => setOutputWidth(parseInt(e.target.value))}
           placeholder="Output Width"
-          className=''
+          className='text-black'
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <Label className='text-white'>Height</Label>
-        <Input
+        <input
           type="number"
           value={outputHeight}
           onChange={(e) => setOutputHeight(parseInt(e.target.value))}
           placeholder="Output Height"
-          className=''
+          className='text-black'
         />
       </div>
 
