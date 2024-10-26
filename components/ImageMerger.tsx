@@ -22,6 +22,42 @@ interface DesignObj {
   designOffsetLeft: number;
 }
 
+/**
+ * ImageMerger component for merging template and design images
+ * @returns {JSX.Element} A React component that allows users to input image parameters and merge images
+ */
+
+const ImageMerger = () => {
+  // ... component implementation ...
+};
+
+/**
+ * Merges a template image with a design image based on specified parameters
+ * @param {TemplateObj} templateObj - Object containing template image properties
+ * @param {DesignObj} designObj - Object containing design image properties
+ * @param {number} outputWidth - Width of the output image
+ * @param {number} outputHeight - Height of the output image
+ * @returns {Promise<string>} A Promise that resolves to the merged image as a data URL
+ * @throws {Error} If there's an error during the image merging process
+ */
+const mergeImage = async (
+  templateObj: TemplateObj,
+  designObj: DesignObj,
+  outputWidth: number,
+  outputHeight: number
+): Promise<string> => {
+  // ... function implementation ...
+};
+
+/**
+ * Loads an image from a given source URL
+ * @param {string} src - The source URL of the image to load
+ * @returns {Promise<HTMLImageElement>} A Promise that resolves to the loaded image
+ * @throws {Error} If there's an error loading the image
+ */
+const loadImage = (src: string): Promise<HTMLImageElement> => {
+  // ... function implementation ...
+};
 const ImageMerger = () => {
   const [templateObj, setTemplateObj] = useState<TemplateObj>({
     // templateImageUrl: "asset.cusotmon.com/temp/14.png",
