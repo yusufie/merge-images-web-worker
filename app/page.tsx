@@ -1,5 +1,9 @@
 import ImageMerger from '@/components/ImageMerger';
 
+/**
+ * Renders the home page component for the Merge Images application.
+ * @returns {JSX.Element} A div containing the page title and ImageMerger component.
+ */
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4">
