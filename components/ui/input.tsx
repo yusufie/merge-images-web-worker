@@ -5,6 +5,14 @@ import { cn } from "@/lib/utils"
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  /**
+   * Renders a customizable input element with specific styling.
+   * @param {Object} props - The properties passed to the component.
+   * @param {string} props.className - Additional CSS classes to apply to the input.
+   * @param {string} props.type - The type of the input element (e.g., 'text', 'password', etc.).
+   * @param {React.Ref} ref - A ref object to access the underlying DOM element.
+   * @returns {React.Element} A styled input element with applied properties and ref.
+   */
   ({ className, type, ...props }, ref) => {
     return (
       <input

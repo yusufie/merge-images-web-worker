@@ -77,8 +77,16 @@ async function mergeImagesWorker(productItemImage, designState, canvasValue) {
         }
 
         if (typeof OffscreenCanvas !== "undefined") {
+            /**
+             * Converts the canvas to a Blob and creates an object URL from it.
+             * @returns {Promise<string>} A promise that resolves to the object URL of the canvas blob.
+             */
             return canvas.convertToBlob().then(blob => URL.createObjectURL(blob));
         } else {
+            /**
+             * Converts a canvas to a Blob and returns a Promise that resolves with the Blob's object URL.
+             * @returns {Promise<string>} A Promise that resolves with the object URL of the canvas Blob.
+             */
             return new Promise((resolve) => {
                 canvas.toBlob((blob) => {
                     resolve(URL.createObjectURL(blob));

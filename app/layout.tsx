@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   description: "Merge design and template images together",
 };
 
+/**
+ * React component that defines the root layout for the application.
+ * It wraps the children components with necessary HTML structure and applies global styles.
+ * @param {Object} props - The properties passed to the component.
+ * @param {React.ReactNode} props.children - The child components to be rendered within the layout.
+ * @returns {JSX.Element} A React element representing the root layout of the application.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -1,4 +1,16 @@
 
+/**
+ * Calculates the scale factors for an image to fit within a canvas while maintaining aspect ratio
+ * @param {Object} canvasValue - The canvas dimensions and scale
+ * @param {number} canvasValue.scale.x - The width of the canvas
+ * @param {number} canvasValue.scale.y - The height of the canvas
+ * @param {Object} img - The image dimensions
+ * @param {number} img.width - The width of the image
+ * @param {number} img.height - The height of the image
+ * @returns {Object} An object containing the calculated scale factors
+ * @returns {number} scaleX - The horizontal scale factor
+ * @returns {number} scaleY - The vertical scale factor
+ */
 export function calculateImageScale(canvasValue, img) {
     const imgAspectRatio = img.width / img.height;
     const frameAspectRatio = canvasValue.scale.x / canvasValue.scale.y;

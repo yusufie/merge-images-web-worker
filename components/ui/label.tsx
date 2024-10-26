@@ -14,6 +14,13 @@ const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
     VariantProps<typeof labelVariants>
+/**
+ * Creates a styled label component using the LabelPrimitive.Root
+ * @param {Object} props - The properties passed to the component
+ * @param {string} props.className - Additional CSS class names to apply to the label
+ * @param {React.Ref} ref - A ref to be forwarded to the underlying LabelPrimitive.Root component
+ * @returns {React.ReactElement} A React element representing the styled label
+ */
 >(({ className, ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
